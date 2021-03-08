@@ -1,0 +1,48 @@
+<div class="home-news-listing">
+  <div class="search-news-form">
+    <form
+      (ngSubmit)="searchNews()"
+      #searchForm="ngForm"
+      class="form-inline my-2 my-lg-0"
+    >
+      <input
+        class="form-control col-md-5 mr-sm-2"
+        type="text"
+        name="searchQuery"
+        [(ngModel)]="searchQuery"
+        placeholder="Search"
+      />
+      <button class="btn btn-success my-2 my-sm-0" type="submit">
+        <i class="fas fa-search"></i> Search
+      </button>
+    </form>
+  </div>
+  <table class="table table-hover">
+    <tr *ngFor="let item of listOfNews">
+      <td>{{ item.Name }}</td>
+      <td>{{ item.Category }}</td>
+      <td>{{ item.Description }}</td>
+      <td
+        [routerLink]="['/news-view', item.Id]"
+        routerLinkActive="router-link-active"
+      >
+        View post
+      </td>
+    </tr>
+  </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</div>

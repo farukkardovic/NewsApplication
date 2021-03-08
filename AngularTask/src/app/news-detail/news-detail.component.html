@@ -1,0 +1,41 @@
+<form #newsForm="ngForm" autocomplete="off" (ngSubmit)="SubmitNews(newsForm)" >
+  <div class="col-md-10 order-md-1">
+    <img
+      class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+      *ngIf="newsService.imageUrl"
+      [src]="newsService.imageUrl"
+      alt="News image"
+    />
+  </div>
+  <div class="container-form col-md-10">
+  <input type="hidden" name="Id" [value]="newsService.newsData.Id">
+  <div class="form-group mt-3">
+      <div class="input-group">
+          <input id="Name" name="Name" #Name="ngModel" 
+          [(ngModel)]="newsService.newsData.Name" required class="form-control" placeholder="Name">
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+        <textarea id="Description" name="Description" #Description="ngModel" 
+        [(ngModel)]="newsService.newsData.Description" required class="form-control" placeholder="Description"></textarea>
+    </div>
+</div>
+<div class="form-group">
+  <div class="input-group col-md-10">
+    <select name="Categories" [(ngModel)]="selectedValue" >
+      <option disabled [value]="undefined" selected>Please select category</option>
+      <option *ngFor="let item of listofCategories" [value]="item.Id" [selected]="item.Id == newsService.newsData.CategoryId">{{item.Name}}</option>
+    </select>  
+  </div>
+</div>
+<div class="form-group">
+  <div class="input-group col-md-10">
+    <input type="file" (change)="handleFileInput($event.target.files)" required id="File" name="File"  />
+  </div>
+</div>
+  <div class="form-group">
+  <button class="btn btn-success btn-lg btn-block" [disabled]="newsForm.invalid" type="submit"><i class="fas fa-database"></i> Submit</button>
+  </div>
+</div>
+</form>
